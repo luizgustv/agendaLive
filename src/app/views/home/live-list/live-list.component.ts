@@ -9,6 +9,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './live-list.component.html',
   styleUrls: ['./live-list.component.css']
 })
+
+
 export class LiveListComponent implements OnInit {
 
   livesPrevious: Live[];
@@ -24,6 +26,7 @@ export class LiveListComponent implements OnInit {
   }
 
   getLives(){
+    
     //ao ter a requisicao feita, subscribe ira definir oq ira ser feito com esses dados
     this.liveService.getLivesWithFlag('previous').subscribe(data => {
       //content é um elemento array de ResponsePageable q ira conter as lives 

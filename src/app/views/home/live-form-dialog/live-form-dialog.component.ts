@@ -22,27 +22,30 @@ export class LiveFormDialogComponent implements OnInit {
   //ao iniciar o component o form sera gerado com certos parametros
   ngOnInit(): void {
     this.liveForm = this.fb.group({
-      liveName: ['', [Validators.required] ],
-      channelName: ['', [Validators.required] ],
-      liveLink: ['', [Validators.required] ],
-      liveDate: ['', [Validators.required] ],
-      liveTime: ['', [Validators.required] ]
+      liveName: ['', [Validators.required]],
+      channelName: ['', [Validators.required]],
+      liveLink: ['', [Validators.required]],
+      liveDate: ['', [Validators.required]],
+      liveTime: ['', [Validators.required]]
     })
   }
 
-  createLive(){
+  createLive() {
     let newDate: moment.Moment = moment.utc(this.liveForm.value.liveDate).local();
     this.liveForm.value.liveDate = newDate.format("YYYY-MM-DD") + 'T' + this.liveForm.value.liveTime;
     console.log(this.liveForm.value);
-    this.rest.postLives(this.liveForm.value).subscribe(result => {});
-    this.dialogRef.close();
-    this.liveForm.reset();
+    this.rest.postLives(this.liveForm.value).subscribe(result => {
+      
+      this.dialogRef.close(true);
+      this.liveForm.reset();
+      window.location.reload(true); //recarregar pagina ao salvar a live
+      
+    });
     
-    window.location.reload(); //recarregar pagina ao salvar a live
   }
 
   cancel(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(true);
     this.liveForm.reset();
   }
 
